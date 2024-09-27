@@ -1,4 +1,4 @@
-- [ ] There are two types of users of this system:
+- [x] There are two types of users of this system:
   a. Teachers, and  
   b. Students.  
   Students need to register before they can login. Students need to supply their name, email, and s-number when they register. Teachers are simply seeded into the database. For testing purpose, there should be sufficient seeded teachers and students.
