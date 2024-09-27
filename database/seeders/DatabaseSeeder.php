@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -49,6 +50,17 @@ class DatabaseSeeder extends Seeder
                     'course_id' => $course->id,
                 ]);
             }
+        }
+
+        // seed assessments (2 or 3 assessments per course)
+        foreach ($courses as $course) {
+            // Randomly determine if a course gets 2 or 3 assessments
+            $numberOfAssessments = rand(2, 3);
+
+            // Create assessments for the course
+            Assessment::factory($numberOfAssessments)->create([
+                'course_id' => $course->id,
+            ]);
         }
     }
 }

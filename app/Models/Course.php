@@ -14,9 +14,15 @@ class Course extends Model
         'name',
     ];
 
-    public function students()
-    {
-        return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'user_id')
-            ->withTimestamps();
+    public function assessments() {
+        return $this->hasMany(Assessment::class);
+    }
+
+    public function students() {
+        return $this->belongsToMany(User::class, 'enrollments');
+    }
+
+    public function teachers() {
+        return $this->belongsToMany(User::class, 'course_teacher');
     }
 }

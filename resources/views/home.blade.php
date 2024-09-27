@@ -13,7 +13,12 @@
             @else
                 <ul class="list-disc list-inside">
                     @foreach($enrolledCourses as $course)
-                        <li>{{ $course->code }} : {{ $course->name }}</li>
+                        <li>
+                            <!-- Link to the course details page using the course code -->
+                            <a href="{{ route('courses.show', $course->code) }}" class="text-blue-500 hover:underline">
+                                {{ $course->code }} : {{ $course->name }}
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             @endif

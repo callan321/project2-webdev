@@ -7,9 +7,9 @@
 
 - [x] A logged-in user should be able to log out.
 
-- [ ] Home page: once logged in, the user can see a list of courses they are enrolled in or teaching. As per real-world, a student can enrol into multiple courses, and a teacher can teach multiple courses. A course has a course code and name. Clicking on a course brings the user to the course details page.
+- [x] Home page: once logged in, the user can see a list of courses they are enrolled in or teaching. As per real-world, a student can enrol into multiple courses, and a teacher can teach multiple courses. A course has a course code and name. Clicking on a course brings the user to the course details page.
 
-- [ ] Details page for a course displays the teachers and the list of (peer review) assessments for this course (e.g. Week 1 Peer Review). Next to each assessment, it should display its due date. User can click on an assessment to bring them to the details page for that assessment.
+- [x] Details page for a course displays the teachers and the list of (peer review) assessments for this course (e.g. Week 1 Peer Review). Next to each assessment, it should display its due date. User can click on an assessment to bring them to the details page for that assessment.
 
 - [ ] Teacher can manually enrol a registered student into a course.
 
