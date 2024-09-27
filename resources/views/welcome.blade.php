@@ -2,8 +2,9 @@
 
 
 @section('content')
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
-    <a href="{{ route('login') }}">Login</a>
+    <div class="flex h-screen w-full justify-center items-center">
+        <a href="{{ route('login') }}" class="w-20 justify-center items-center flex">
+            <x-button>Login</x-button>
+        </a>
+    </div>
 @endsection

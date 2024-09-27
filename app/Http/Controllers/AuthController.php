@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     /**
      * Handle an authentication attempt.
@@ -17,7 +18,9 @@ class LoginController extends Controller
         return view('login');
     }
 
-
+    /**
+     * Handle an authentication attempt.
+     */
     public function authenticate(Request $request): RedirectResponse
     {
         // Validate the incoming request data
@@ -50,6 +53,14 @@ class LoginController extends Controller
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
         ])->onlyInput('username');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        Session::invalidate();
+        Session::regenerateToken();
+        return redirect('/');
     }
 
 }
