@@ -14,10 +14,7 @@
 
             <!-- Sidebar Navigation Links -->
             <nav class="flex-grow p-4">
-                <a href="#" class="block mb-4  font-medium text-gray-300 hover:text-white">Home</a>
-                <a href="#" class="block mb-4  font-medium text-gray-300 hover:text-white">Courses</a>
-                <a href="#" class="block mb-4  font-medium text-gray-300 hover:text-white">Assessments</a>
-                <a href="#" class="block mb-4  font-medium text-gray-300 hover:text-white">Profile</a>
+                <a href="/home" class="block mb-4  font-medium text-gray-300 hover:text-white">Home</a>
             </nav>
 
             <!-- Sidebar Bottom Section: Logout Button -->
