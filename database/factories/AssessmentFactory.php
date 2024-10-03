@@ -17,8 +17,13 @@ class AssessmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(3), 
-            'due_date' => $this->faker->dateTimeBetween('now', '+2 months'),
+            'name' => $this->faker->text(20),
+            'instruction' => $this->faker->paragraph(),
+            'number_of_reviews' => $this->faker->numberBetween(1, 5),
+            'max_score' => $this->faker->numberBetween(1, 100),
+            'due_date' => $this->faker->date(),
+            'due_time' => $this->faker->time(),
+            'type' => $this->faker->randomElement(['student-select', 'teacher-assign']),
         ];
     }
 }

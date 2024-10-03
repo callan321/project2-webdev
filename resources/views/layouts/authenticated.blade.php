@@ -15,6 +15,13 @@
             <!-- Sidebar Navigation Links -->
             <nav class="flex-grow p-4">
                 <a href="/home" class="block mb-4  font-medium text-gray-300 hover:text-white">Home</a>
+                
+                <!-- Teacher only   Links -->
+                @if(Auth::user()->role == 't')
+                    <a href="{{ route('enrollments.create') }}" class="block mb-4 font-medium text-gray-300 hover:text-white">
+                        Enroll Students
+                    </a>
+                @endif
             </nav>
 
             <!-- Sidebar Bottom Section: Logout Button -->

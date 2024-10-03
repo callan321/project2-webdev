@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->string('name', 20);
+            $table->text('instruction');
+            $table->integer('number_of_reviews')->unsigned();
+            $table->integer('max_score')->unsigned()->default(100);
             $table->date('due_date');
+            $table->time('due_time');
+            $table->enum('type', ['student-select', 'teacher-assign']);
             $table->timestamps();
         });
     }

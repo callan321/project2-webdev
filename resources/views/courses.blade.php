@@ -36,7 +36,7 @@
             <ul class="list-disc list-inside mb-4">
                 @foreach($assessments as $assessment)
                     <li class="mb-1">
-                        <a href="javascript:void(0)" class="text-blue-500 hover:underline">
+                        <a href="{{ route('assessments.show', $assessment->id) }}" class="text-blue-500 hover:underline">
                             {{ $assessment->name }}
                         </a> - Due: {{ $assessment->due_date->format('F j, Y') }}
                     </li>

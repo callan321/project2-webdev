@@ -11,7 +11,7 @@
 
 - [x] Details page for a course displays the teachers and the list of (peer review) assessments for this course (e.g. Week 1 Peer Review). Next to each assessment, it should display its due date. User can click on an assessment to bring them to the details page for that assessment.
 
-- [ ] Teacher can manually enrol a registered student into a course.
+- [x] Teacher can manually enrol a registered student into a course.
 
 - [ ] From the course details page, a teacher can add a peer review assessment to this course. A peer review assessment should contain an assessment title (up to 20 characters), instruction (free text), the number of reviews required to be submitted (a number 1 or above), maximum score (between 1 and 100 inclusive), a due date and time, and a type. There are two types of peer review: student-select and teacher-assign (reviewee).
 

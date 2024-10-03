@@ -16,32 +16,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        // seed users
-        $testUser = User::factory()->create([
+        // Seed users
+        $testStudent = User::factory()->create([
             'number' => '12345678',
-            'role' => 's',
-            'password' => 'pass',
-            'name' => 'Test User',
+            'role' => 's',  // 's' for student
+            'password' => bcrypt('pass'),
+            'name' => 'Test Student',
             'email' => 'test@example.com',
         ]);
-        $students = User::factory(10)->create();
 
+        $testTeacher = User::factory()->create([
+            'number' => '12345679',
+            'role' => 't',  // 't' for teacher
+            'password' => bcrypt('pass'),
+            'name' => 'Test Teacher',
+            'email' => 'test2@example.com',
+        ]);
 
-        // seed courses
+        $students = User::factory(10)->create();  // Seed additional students
+
+        // Seed courses
         $courses = Course::factory(8)->create();
 
-
-        // seed enrollments
-        // test user only
-        $randomCourses = $courses->random(5);
+        // Seed enrollments for the test student
+        $randomCourses = $courses->random(5);  // Test student enrolled in 5 random courses
         foreach ($randomCourses as $course) {
             Enrollment::create([
-                'user_id' => $testUser->id,
+                'user_id' => $testStudent->id,
                 'course_id' => $course->id,
             ]);
         }
-        // all other courses
+
+        // Seed enrollments for other students (4 courses each)
         foreach ($students as $student) {
             $randomCourses = $courses->random(4);
             foreach ($randomCourses as $course) {
@@ -52,12 +58,14 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // seed assessments (2 or 3 assessments per course)
+        // Assign the test teacher as the teacher for all courses
         foreach ($courses as $course) {
-            // Randomly determine if a course gets 2 or 3 assessments
-            $numberOfAssessments = rand(2, 3);
+            $course->teachers()->attach($testTeacher->id);  // Attach the teacher to all courses
+        }
 
-            // Create assessments for the course
+        // Seed assessments (2 or 3 assessments per course)
+        foreach ($courses as $course) {
+            $numberOfAssessments = rand(2, 3);  // Randomly determine if a course gets 2 or 3 assessments
             Assessment::factory($numberOfAssessments)->create([
                 'course_id' => $course->id,
             ]);
