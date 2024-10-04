@@ -9,7 +9,7 @@
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Username (Role + Number)</label>
                 <input type="text" id="username" name="username" placeholder="e.g. s12345678"
-                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900"
                        required autofocus>
                 @error('username')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -20,7 +20,7 @@
             <div class="mb-6">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" id="password" name="password"
-                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900"
                        required>
                 @error('password')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
