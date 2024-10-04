@@ -36,16 +36,30 @@ class ReviewController extends Controller
         // Validation rules
         $rules = [
             'reviewee_id' => 'required|exists:users,id',
-            'review_text' => 'required|min:5',
+            'code_quality' => 'required|min:5',
+            'code_structure' => 'required|min:5',
+            'coding_style' => 'required|min:5',
+            'testing_debugging' => 'required|min:5',
+            'documentation' => 'required|min:5',
+            'areas_for_improvement' => 'required|min:5',
         ];
 
         // If the user is a teacher, they must provide a score
         if ($authUser->role === 't') {
-            $rules['score'] = 'required|integer|min:0|max:' . $assessment->max_score; // Teachers must provide a score within max_score
+            $rules['score'] = 'required|integer|min:0|max:' . $assessment->max_score;
         }
 
         // Validate the input
         $request->validate($rules);
+
+        // Combine the structured review responses into one text
+        $reviewText = "Code Quality: " . $request->code_quality . "\n\n"
+            . "Code Structure: " . $request->code_structure . "\n\n"
+            . "Coding Style: " . $request->coding_style . "\n\n"
+            . "Testing & Debugging: " . $request->testing_debugging . "\n\n"
+            . "Documentation: " . $request->documentation . "\n\n"
+            . "Areas for Improvement: " . $request->areas_for_improvement . "\n\n"
+            . "General Feedback: " . ($request->general_feedback ?? 'None');
 
         // Ensure the reviewer hasn't already reviewed this reviewee for this assessment
         $existingReview = Review::where('reviewer_id', $authUser->id)
@@ -62,8 +76,8 @@ class ReviewController extends Controller
             'reviewer_id' => $authUser->id,
             'reviewee_id' => $request->reviewee_id,
             'assessment_id' => $assessmentId,
-            'review_text' => $request->review_text,
-            'score' => $authUser->role === 't' ? $request->score : null, // Only store score if the user is a teacher
+            'review_text' => $reviewText,  // Store combined text
+            'score' => $authUser->role === 't' ? $request->score : null, // Only store score if teacher
         ]);
 
         return redirect()->route('assessments.show', $assessmentId)->with('success', 'Review submitted successfully!');

@@ -84,8 +84,10 @@
                         @foreach ($receivedReviews as $review)
                             <li class="bg-gray-100 p-4 rounded shadow">
                                 <strong>Reviewer:</strong> {{ $review->reviewer->name }} <br>
-                                <strong>Review:</strong> {{ $review->review_text }} <br>
-                                @if($review->score !== null) <!-- Only display the score if it's set -->
+                                <strong>Review:</strong>
+                                <br/>
+                                <pre>{{ $review->review_text }}</pre>
+                            @if($review->score !== null) <!-- Only display the score if it's set -->
                                 <strong>Score:</strong> {{ $review->score }}/{{ $assessment->max_score }}
                                 @endif
                             </li>

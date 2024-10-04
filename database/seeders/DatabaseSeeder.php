@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'role' => 't',  // 't' for teacher
             'password' => bcrypt('pass'),
             'name' => 'Test Teacher',
-            'email' => 'test2@example.com',
+            'email' => 'testteacher@example.com',
         ]);
 
         $teachers = User::factory(5)->create([
@@ -38,6 +38,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test Student',
             'email' => 'test@example.com',
         ]);
+        $testStudent2 = User::factory()->create([
+            'number' => '12345677',
+            'role' => 's',  // 's' for student
+            'password' => bcrypt('pass'),
+            'name' => 'Test Student 2',
+            'email' => 'test2@example.com',
+        ]);
 
         $students = User::factory(50)->create([  // Increase number of students
             'role' => 's',
@@ -47,11 +54,15 @@ class DatabaseSeeder extends Seeder
         // Seed courses
         $courses = Course::factory(10)->create();  // Create more courses
 
-        // Enroll the test student in 5 random courses
+        // Enroll the test students in the same  5 random courses
         $randomCourses = $courses->random(5);
         foreach ($randomCourses as $course) {
             Enrollment::create([
                 'user_id' => $testStudent->id,
+                'course_id' => $course->id,
+            ]);
+            Enrollment::create([
+                'user_id' => $testStudent2->id,
                 'course_id' => $course->id,
             ]);
         }
