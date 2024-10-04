@@ -4,6 +4,7 @@
     <div class="max-w-4xl mx-auto py-10">
         <!-- Assessment Title -->
         <h1 class="text-3xl font-bold mb-6 text-center">{{ $assessment->name }}</h1>
+        <a href="{{ route('reviews.marking', $assessment->id) }}" class="text-blue-600">Go to Marking Page</a>
 
         <!-- Course Name -->
         <h2 class="text-xl font-semibold mb-4 text-gray-700">Course: {{ $course->name }} ({{ $course->code }})</h2>
@@ -49,5 +50,8 @@
             <h3 class="text-xl font-semibold mb-2">Peer Review Type:</h3>
             <p class="text-gray-600 capitalize">{{ $assessment->type }}</p>
         </div>
+
+        <a href="{{ route('reviews.create', $assessment->id) }}" class="text-blue-600">Submit a Peer Review</a>
+
     </div>
 @endsection

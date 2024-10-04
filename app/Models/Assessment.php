@@ -28,4 +28,9 @@ class Assessment extends Model
     public function course() {
         return $this->belongsTo(Course::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 }

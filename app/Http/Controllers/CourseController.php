@@ -17,12 +17,19 @@ class CourseController extends Controller
         // Get the authenticated user
         $user = Auth::user();
 
-        // Fetch the courses the user is enrolled in using the relationship
-        $enrolledCourses = $user->courses;
+        // Check if the user has the role of 'teacher' or 'student'
+        if ($user->role == 't') {
+            // Fetch the courses where the user is a teacher
+            $enrolledCourses = $user->coursesTeaching;  // Assuming a relationship exists in the User model
+        } else {
+            // Fetch the courses where the user is a student
+            $enrolledCourses = $user->courses;  // Assuming 'courses' is the relationship for students
+        }
 
         // Pass the courses to the view
-        return view('home', compact('enrolledCourses'));
+        return view('courses.index', compact('enrolledCourses'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +60,7 @@ class CourseController extends Controller
         $students = $course->students;
         $assessments = $course->assessments;
 
-        return view('courses', compact('course', 'teachers', 'students', 'assessments'));
+        return view('courses.show', compact('course', 'teachers', 'students', 'assessments'));
     }
 
 

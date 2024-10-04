@@ -4,6 +4,11 @@
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-4">{{ $course->name }} ({{ $course->code }})</h1>
 
+        <!-- Teachers can create a new assessment -->
+        @if(auth()->user()->role === 't')
+            <a href="{{ route('assessments.create', $course->id) }}" class="text-blue-500 hover:underline mb-4 inline-block">Create Assessment</a>
+        @endif
+
         <!-- Teachers Section -->
         <h2 class="text-xl font-semibold mb-2">Teachers</h2>
         @if($teachers->isEmpty())
@@ -39,6 +44,11 @@
                         <a href="{{ route('assessments.show', $assessment->id) }}" class="text-blue-500 hover:underline">
                             {{ $assessment->name }}
                         </a> - Due: {{ $assessment->due_date->format('F j, Y') }}
+
+                        @if(auth()->user()->role === 't')
+                            <!-- Edit Assessment Link -->
+                            <a href="{{ route('assessments.edit', $assessment->id) }}" class="text-yellow-500 hover:underline ml-4">Edit</a>
+                        @endif
                     </li>
                 @endforeach
             </ul>

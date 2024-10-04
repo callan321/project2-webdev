@@ -32,3 +32,7 @@
 - [ ] There are two types of peer review, “student-select” as described in 9a, and “teacher-assign.” Design and implement teacher-assign. In this type, the teacher randomly assigns students to peer review groups for each peer review. Students only review other students in their assigned group. This system should support:
   a. Being able to obtain the correct information regarding which student has been assigned to which group.  
   b. Students can only submit reviews for students in the assigned group.
+
+
+### fixes 
+let teachers add students 

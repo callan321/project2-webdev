@@ -16,7 +16,7 @@ class EnrollmentController extends Controller
         $courses = Course::all();
         $students = User::where('role', 's')->get();
 
-        return view('enrollments', compact('courses', 'students'));
+        return view('enrollments.create', compact('courses', 'students'));
     }
     // Store the enrollment in the database
     public function store(Request $request)
