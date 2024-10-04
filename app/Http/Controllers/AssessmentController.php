@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Assessment;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssessmentController extends Controller
 {
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -39,7 +38,7 @@ class AssessmentController extends Controller
         ]);
 
         // Create a new assessment
-        Assessment::create($request->all());
+        $assessment = Assessment::create($request->all());
 
         // Redirect to the show page of the newly created assessment
         return redirect()->route('assessments.show', $assessment->id)
@@ -51,12 +50,28 @@ class AssessmentController extends Controller
      */
     public function show(string $id)
     {
+        // Get the assessment
         $assessment = Assessment::findOrFail($id);
+
         // Get the related course using the course_id
         $course = Course::findOrFail($assessment->course_id);
 
-        // Return the view and pass the assessment and course to it
-        return view('assessments.show', compact('assessment', 'course'));
+        // Get the current authenticated user
+        $user = Auth::user();
+
+        // Initialize received reviews variable
+        $receivedReviews = [];
+
+        // If the user is a student, retrieve the reviews they received for this assessment
+        if ($user->role == 's') {
+            $receivedReviews = $assessment->reviews()
+                ->where('reviewee_id', $user->id)  // Filter reviews where the student is the reviewee
+                ->with('reviewer')  // Eager load the reviewer's information
+                ->get();
+        }
+
+        // Return the view and pass the assessment, course, and received reviews to it
+        return view('assessments.show', compact('assessment', 'course', 'receivedReviews'));
     }
 
     /**
@@ -67,7 +82,13 @@ class AssessmentController extends Controller
         $assessment = Assessment::findOrFail($id);
         $course = Course::findOrFail($assessment->course_id);
 
-        // Pass the assessment and courses to the view
+        // Check if there are any reviews for this assessment
+        if ($assessment->reviews()->exists()) {
+            return redirect()->route('assessments.show', $assessment->id)
+                ->withErrors(['error' => 'You cannot edit this assessment because reviews have already been submitted.']);
+        }
+
+        // If no reviews, show the edit form
         return view('assessments.edit', compact('assessment', 'course'));
     }
 
@@ -76,6 +97,15 @@ class AssessmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $assessment = Assessment::findOrFail($id);
+
+        // Check if there are any reviews for this assessment
+        if ($assessment->reviews()->exists()) {
+            return redirect()->route('assessments.show', $assessment->id)
+                ->withErrors(['error' => 'You cannot update this assessment because reviews have already been submitted.']);
+        }
+
+        // Validate the input and update the assessment
         $request->validate([
             'name' => 'required|string|max:255',
             'instruction' => 'required|string',
@@ -85,13 +115,9 @@ class AssessmentController extends Controller
             'type' => 'required|in:student-select,teacher-assign',
         ]);
 
-        // Find the assessment and update its details
-        $assessment = Assessment::findOrFail($id);
         $assessment->update($request->all());
 
         return redirect()->route('courses.show', $assessment->course->code)
             ->with('success', 'Assessment updated successfully.');
     }
-
-
 }

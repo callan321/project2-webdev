@@ -10,6 +10,7 @@
                 <th class="px-4 py-2">Student Name</th>
                 <th class="px-4 py-2">Reviews Submitted</th>
                 <th class="px-4 py-2">Reviews Received</th>
+                <th class="px-4 py-2">Actions</th> <!-- New column for action buttons -->
             </tr>
             </thead>
             <tbody>
@@ -18,6 +19,14 @@
                     <td class="border px-4 py-2">{{ $student->name }}</td>
                     <td class="border px-4 py-2">{{ $student->submitted_reviews_count }}</td>
                     <td class="border px-4 py-2">{{ $student->received_reviews_count }}</td>
+
+                    <!-- Add a button/link to assign a score -->
+                    <td class="border px-4 py-2">
+                        <a href="{{ route('reviews.create', ['id' => $assessment->id, 'reviewee_id' => $student->id]) }}" class="text-blue-600">
+                            Assign Score
+                        </a>
+
+                    </td>
                 </tr>
             @endforeach
             </tbody>

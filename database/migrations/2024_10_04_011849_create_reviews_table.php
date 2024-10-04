@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('reviewee_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('assessment_id')->constrained()->onDelete('cascade');
             $table->text('review_text');
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

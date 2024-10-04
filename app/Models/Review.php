@@ -14,6 +14,7 @@ class Review extends Model
         'reviewee_id',
         'assessment_id',
         'review_text',
+        'score',
     ];
 
     public function reviewer()

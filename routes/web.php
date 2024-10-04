@@ -51,8 +51,6 @@ Route::middleware(['auth', 'teacher'])->group(function () {
 // auth routes
 Route::middleware(['auth'])->group(function () {
 
-
-
     Route::get('/home', [CourseController::class, 'index'])->name('home');
     Route::get('/courses/{code}', [CourseController::class, 'show'])->name('courses.show');
     Route::get('/assessments/{id}', [AssessmentController::class, 'show'])->name('assessments.show');
@@ -60,9 +58,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/enrollments/create', [EnrollmentController::class, 'create'])->name('enrollments.create');
     Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store');
 
-    // Peer review routes for students
-    Route::get('/assessments/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+
+    Route::get('/assessments/{id}/reviews/create/{reviewee_id?}', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/assessments/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
 });
 
 

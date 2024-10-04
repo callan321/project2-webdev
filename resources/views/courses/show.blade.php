@@ -44,11 +44,6 @@
                         <a href="{{ route('assessments.show', $assessment->id) }}" class="text-blue-500 hover:underline">
                             {{ $assessment->name }}
                         </a> - Due: {{ $assessment->due_date->format('F j, Y') }}
-
-                        @if(auth()->user()->role === 't')
-                            <!-- Edit Assessment Link -->
-                            <a href="{{ route('assessments.edit', $assessment->id) }}" class="text-yellow-500 hover:underline ml-4">Edit</a>
-                        @endif
                     </li>
                 @endforeach
             </ul>
