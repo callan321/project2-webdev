@@ -21,6 +21,6 @@ class TeacherMiddleware
         }
 
         // If user isn't a teacher
-        abort(404, 'Page not found');
+        return abort(403, 'Unauthorized');
     }
 }
