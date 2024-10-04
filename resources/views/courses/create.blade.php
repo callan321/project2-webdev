@@ -1,8 +1,8 @@
 @extends('layouts.authenticated')
 
 @section('main')
-    <div class="max-w-4xl mx-auto py-10">
-        <h1 class="text-3xl font-bold mb-6">Upload Course File</h1>
+    <div class="max-w-4xl mx-auto py-10 px-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6 text-center">Upload Course File</h1>
 
         <!-- Display Validation Errors -->
         @if ($errors->any())
@@ -19,12 +19,16 @@
         <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="mb-4">
-                <label for="file" class="block font-medium">Upload Course File (TXT)</label>
-                <input type="file" name="file" id="file" class="block w-full mt-2" required>
+            <!-- File Input -->
+            <div class="mb-6">
+                <label for="file" class="block text-sm font-medium text-gray-700">Upload Course File (TXT)</label>
+                <input type="file" name="file" id="file" class="mt-2 block w-full border border-gray-300 rounded" required>
             </div>
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2">Upload</button>
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500">Upload</button>
+            </div>
         </form>
     </div>
 @endsection

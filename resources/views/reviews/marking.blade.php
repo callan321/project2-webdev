@@ -1,38 +1,40 @@
 @extends('layouts.authenticated')
 
 @section('main')
-    <div class="max-w-4xl mx-auto py-10">
-        <h1 class="text-3xl font-bold mb-6">Marking for {{ $assessment->name }}</h1>
+    <div class="max-w-4xl mx-auto py-10 px-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-3xl font-bold mb-6 text-center">Marking for {{ $assessment->name }}</h1>
 
-        <table class="w-full table-auto">
-            <thead>
-            <tr>
-                <th class="px-4 py-2">Student Name</th>
-                <th class="px-4 py-2">Reviews Submitted</th>
-                <th class="px-4 py-2">Reviews Received</th>
-                <th class="px-4 py-2">Actions</th> <!-- New column for action buttons -->
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($students as $student)
+        <!-- Table for Students and Reviews -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
                 <tr>
-                    <td class="border px-4 py-2">{{ $student->name }}</td>
-                    <td class="border px-4 py-2">{{ $student->submitted_reviews_count }}</td>
-                    <td class="border px-4 py-2">{{ $student->received_reviews_count }}</td>
-
-                    <!-- Add a button/link to assign a score -->
-                    <td class="border px-4 py-2">
-                        <a href="{{ route('reviews.create', ['id' => $assessment->id, 'reviewee_id' => $student->id]) }}" class="text-blue-600">
-                            Assign Score
-                        </a>
-
-                    </td>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reviews Submitted</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reviews Received</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                @foreach($students as $student)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $student->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $student->submitted_reviews_count }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $student->received_reviews_count }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="{{ route('reviews.create', ['id' => $assessment->id, 'reviewee_id' => $student->id]) }}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500">
+                                Assign Score
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <!-- Pagination Links -->
-        {{ $students->links() }}
+        <div class="mt-6">
+            {{ $students->links('pagination::tailwind') }}
+        </div>
     </div>
 @endsection

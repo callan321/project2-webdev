@@ -1,18 +1,21 @@
 @extends('layouts.authenticated')
 
 @section('main')
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-4">Welcome, {{ Auth::user()->name }}!</h1>
-        <p class="mb-2"><strong>Email:</strong> {{ Auth::user()->email }}</p>
-        <p class="mb-2"><strong>Number:</strong> {{ Auth::user()->role }}{{ Auth::user()->number }}</p>
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6">Welcome, {{ Auth::user()->name }}!</h1>
+
+        <div class="mb-6">
+            <p class="text-lg"><strong>Email:</strong> {{ Auth::user()->email }}</p>
+            <p class="text-lg"><strong>Number:</strong> {{ Auth::user()->role }}{{ Auth::user()->number }}</p>
+        </div>
 
         @if(Auth::user()->role == 't')
-            <!-- Display courses the user is teaching if the role is 't' -->
-            <h2 class="text-xl font-semibold mt-6">Courses You are Teaching:</h2>
+            <!-- Display courses the teacher is teaching -->
+            <h2 class="text-2xl font-semibold mt-8 mb-4">Courses You are Teaching:</h2>
             @if($enrolledCourses->isEmpty())
-                <p>You are not teaching any courses.</p>
+                <p class="text-gray-500">You are not teaching any courses.</p>
             @else
-                <ul class="list-disc list-inside">
+                <ul class="space-y-2">
                     @foreach($enrolledCourses as $course)
                         <li>
                             <a href="{{ route('courses.show', $course->code) }}" class="text-blue-500 hover:underline">
@@ -24,11 +27,11 @@
             @endif
         @else
             <!-- Display enrolled courses for students -->
-            <h2 class="text-xl font-semibold mt-6">Your Enrolled Courses:</h2>
+            <h2 class="text-2xl font-semibold mt-8 mb-4">Your Enrolled Courses:</h2>
             @if($enrolledCourses->isEmpty())
-                <p>You are not enrolled in any courses.</p>
+                <p class="text-gray-500">You are not enrolled in any courses.</p>
             @else
-                <ul class="list-disc list-inside">
+                <ul class="space-y-2">
                     @foreach($enrolledCourses as $course)
                         <li>
                             <a href="{{ route('courses.show', $course->code) }}" class="text-blue-500 hover:underline">
